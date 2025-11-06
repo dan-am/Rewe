@@ -1,10 +1,9 @@
 """
-Utility functions for the Rewe project.
+Hilfsfunktionen für das Rewe-Projekt.
 
-This module contains helper functions used across the project.
+Dieses Modul enthält allgemeine Hilfsfunktionen für das gesamte Projekt.
 """
 
-import os
 from pathlib import Path
 from typing import Optional
 
@@ -13,20 +12,21 @@ from dotenv import load_dotenv
 
 def get_project_root() -> Path:
     """
-    Get the root directory of the project.
+    Gibt das Stammverzeichnis des Projekts zurück.
     
     Returns:
-        Path to the project root
+        Pfad zum Projekt-Stammverzeichnis
     """
     return Path(__file__).parents[2]
 
 
 def load_environment(env_file: Optional[str] = None) -> None:
     """
-    Load environment variables from .env file.
+    Lädt Umgebungsvariablen aus einer .env-Datei.
     
     Args:
-        env_file: Path to .env file. If None, looks for .env in project root
+        env_file: Pfad zur .env-Datei. Falls None, wird im Projekt-Stammverzeichnis
+            nach .env gesucht
     """
     if env_file is None:
         env_file = get_project_root() / ".env"
@@ -36,16 +36,19 @@ def load_environment(env_file: Optional[str] = None) -> None:
 
 def get_data_path(data_type: str = "raw") -> Path:
     """
-    Get the path to a data directory.
+    Gibt den Pfad zu einem Datenverzeichnis zurück.
     
     Args:
-        data_type: Type of data directory ('raw', 'processed', 'interim', 'external')
+        data_type: Typ des Datenverzeichnisses ('raw', 'processed', 'interim', 'external')
         
     Returns:
-        Path to the data directory
+        Pfad zum Datenverzeichnis
+        
+    Raises:
+        ValueError: Wenn ein ungültiger data_type angegeben wird
     """
     valid_types = ["raw", "processed", "interim", "external"]
     if data_type not in valid_types:
-        raise ValueError(f"data_type must be one of {valid_types}")
+        raise ValueError(f"data_type muss einer von {valid_types} sein")
     
     return get_project_root() / "data" / data_type

@@ -14,6 +14,7 @@ setup(
         'matplotlib>=3.7.0',
         'seaborn>=0.12.0',
         'scipy>=1.10.0',
+        'python-dotenv>=1.0.0',
     ],
     extras_require={
         'dev': [
